@@ -1,5 +1,7 @@
 package com.angrysurfer.atomic.broker.resource;
 
+import com.angrysurfer.atomic.broker.api.ServiceRequest;
+import com.angrysurfer.atomic.broker.api.ServiceResponse;
 import com.angrysurfer.atomic.broker.service.IBrokerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -15,11 +17,27 @@ public class BrokerResource {
     IBrokerService brokerService;
 
     @POST
-    @Path("/route/{service}/{operation}")
-    public Response routeRequest(@PathParam("service") String service, 
-                                @PathParam("operation") String operation, 
-                                String payload) {
-        return brokerService.routeRequest(service, operation, payload);
+    @Path("/broker/submitRequest")
+    public Response submitRequest(ServiceRequest request) {
+        ServiceResponse<?> response = brokerService.submit(request);
+        if (response.isOk()) {
+            return Response.ok(response).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+        }
+    }
+
+    @POST
+    @Path("/broker/testBroker")
+    public Response testBroker() {
+        ServiceRequest request = new ServiceRequest("testBroker", "test",
+                java.util.Collections.emptyMap(), "test-request");
+        ServiceResponse<?> response = brokerService.submit(request);
+        if (response.isOk()) {
+            return Response.ok(response).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+        }
     }
 
     @GET

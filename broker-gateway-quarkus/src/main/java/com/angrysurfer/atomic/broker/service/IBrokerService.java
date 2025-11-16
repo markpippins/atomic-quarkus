@@ -1,8 +1,10 @@
 package com.angrysurfer.atomic.broker.service;
 
+import com.angrysurfer.atomic.broker.api.ServiceRequest;
+import com.angrysurfer.atomic.broker.api.ServiceResponse;
 import jakarta.ws.rs.core.Response;
 
 public interface IBrokerService {
-    Response routeRequest(String service, String operation, String payload);
+    ServiceResponse<?> submit(ServiceRequest request);
     Response healthCheck();
 }

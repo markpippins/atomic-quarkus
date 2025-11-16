@@ -1,7 +1,10 @@
 package com.angrysurfer.atomic.broker.service;
 
+import com.angrysurfer.atomic.broker.api.ServiceRequest;
+import com.angrysurfer.atomic.broker.api.ServiceResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.Response;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,21 +12,27 @@ import java.util.Map;
 public class QuarkusBrokerService implements IBrokerService {
 
     @Override
-    public Response routeRequest(String service, String operation, String payload) {
+    public ServiceResponse<?> submit(ServiceRequest request) {
         try {
+            // For now, return a simple response with the request data
+            // In the future, this would route to actual services
             Map<String, Object> result = new HashMap<>();
-            result.put("service", service);
-            result.put("operation", operation);
-            result.put("payload", payload);
-            result.put("status", "routed");
+            result.put("service", request.getService());
+            result.put("operation", request.getOperation());
+            result.put("params", request.getParams());
+            result.put("requestId", request.getRequestId());
+            result.put("status", "processed");
             result.put("timestamp", System.currentTimeMillis());
             
-            return Response.ok(result).build();
+            return ServiceResponse.ok(request.getService(), request.getOperation(), result, request.getRequestId());
         } catch (Exception e) {
-            Map<String, String> error = new HashMap<>();
-            error.put("error", e.getMessage());
-            error.put("service", service);
-            return Response.serverError().entity(error).build();
+            // Create error response with the original request ID if available
+            String requestId = request != null ? request.getRequestId() : "unknown";
+            ServiceResponse<Object> errorResponse = new ServiceResponse<>();
+            errorResponse.setOk(false);
+            errorResponse.setRequestId(requestId);
+            errorResponse.addError("exception", e.getMessage());
+            return errorResponse;
         }
     }
 
