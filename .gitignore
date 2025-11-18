@@ -148,3 +148,6 @@ broker-gateway-quarkus/target/quarkus-app/lib/main/org.wildfly.common.wildfly-co
 broker-gateway-quarkus/target/quarkus-app/quarkus/generated-bytecode.jar
 broker-gateway-quarkus/target/quarkus-app/quarkus/quarkus-application.dat
 broker-gateway-quarkus/target/quarkus-app/quarkus/transformed-bytecode.jar
+broker-gateway-quarkus/target/classes/com/angrysurfer/atomic/broker/config/ServiceLoggingFilter.class
+broker-gateway-quarkus/target/quarkus/bootstrap/dev-app-model.dat
+.gitignore
