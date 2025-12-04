@@ -148,6 +148,35 @@ The Quarkus broker-gateway service is designed to work seamlessly with the exist
 - Follows the same security patterns and authentication flows
 - Uses the same external service URLs for routing
 
+### Host-Server Registration
+
+The Quarkus broker-gateway **automatically registers** with the host-server on startup, demonstrating **polyglot service registration** (Quarkus → Spring Boot).
+
+**Configuration**:
+```properties
+# Host Server Registration
+host.server.url=http://localhost:8085
+service.host=localhost
+registration.enabled=true
+heartbeat.interval.seconds=30
+```
+
+**Features**:
+- Auto-registration on startup
+- Periodic heartbeats (every 30 seconds)
+- Graceful shutdown handling
+- Metadata includes framework info (Quarkus, native-capable)
+
+**Verification**:
+```bash
+# Check registration
+curl http://localhost:8085/api/registry/services
+
+# Should show broker-gateway-quarkus with status ACTIVE
+```
+
+This demonstrates that **any JVM framework** (Spring Boot, Quarkus, Micronaut, etc.) can participate in the service mesh.
+
 ## Advantages of Quarkus Implementation
 
 ### Performance
