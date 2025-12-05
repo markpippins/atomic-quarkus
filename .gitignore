@@ -151,3 +151,10 @@ broker-gateway-quarkus/target/quarkus-app/quarkus/transformed-bytecode.jar
 broker-gateway-quarkus/target/classes/com/angrysurfer/atomic/broker/config/ServiceLoggingFilter.class
 broker-gateway-quarkus/target/quarkus/bootstrap/dev-app-model.dat
 .gitignore
+broker-gateway-quarkus/.settings/org.eclipse.core.resources.prefs
+broker-gateway-quarkus/.settings/org.eclipse.jdt.apt.core.prefs
+broker-gateway-quarkus/.settings/org.eclipse.jdt.core.prefs
+broker-gateway-quarkus/.settings/org.eclipse.m2e.core.prefs
+broker-gateway-quarkus/target/classes/com/angrysurfer/atomic/broker/service/HostServerRegistrationService.class
+broker-gateway-quarkus/.project
+broker-gateway-quarkus/.classpath
