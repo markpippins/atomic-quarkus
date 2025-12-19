@@ -1,0 +1,163 @@
+package com.angrysurfer.atomic.broker.service;
+
+import io.quarkus.runtime.StartupEvent;
+import io.quarkus.runtime.ShutdownEvent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Service that registers the Quarkus broker-gateway with the host-server
+ * on startup and sends periodic heartbeats.
+ * 
+ * This demonstrates polyglot service registration - a Quarkus service
+ * registering with a Spring Boot host-server.
+ */
+@ApplicationScoped
+public class HostServerRegistrationService {
+    
+    private static final Logger LOG = Logger.getLogger(HostServerRegistrationService.class);
+    
+    @ConfigProperty(name = "host.server.url", defaultValue = "http://localhost:8085")
+    String hostServerUrl;
+    
+    @ConfigProperty(name = "quarkus.http.port", defaultValue = "8090")
+    int port;
+    
+    @ConfigProperty(name = "quarkus.application.name", defaultValue = "broker-gateway-quarkus")
+    String serviceName;
+    
+    @ConfigProperty(name = "service.host", defaultValue = "localhost")
+    String serviceHost;
+    
+    @ConfigProperty(name = "registration.enabled", defaultValue = "true")
+    boolean registrationEnabled;
+    
+    @ConfigProperty(name = "heartbeat.interval.seconds", defaultValue = "30")
+    int heartbeatInterval;
+    
+    private ScheduledExecutorService scheduler;
+    private Client client;
+    
+    /**
+     * Register with host-server on application startup
+     */
+    void onStart(@Observes StartupEvent ev) {
+        if (!registrationEnabled) {
+            LOG.info("Host-server registration is disabled");
+            return;
+        }
+        
+        LOG.info("Starting host-server registration service");
+        
+        client = ClientBuilder.newClient();
+        
+        // Initial registration
+        registerService();
+        
+        // Schedule periodic heartbeats
+        scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(
+            this::sendHeartbeat,
+            heartbeatInterval,
+            heartbeatInterval,
+            TimeUnit.SECONDS
+        );
+        
+        LOG.info("Host-server registration service started. Heartbeat interval: " + heartbeatInterval + "s");
+    }
+    
+    /**
+     * Cleanup on application shutdown
+     */
+    void onStop(@Observes ShutdownEvent ev) {
+        if (scheduler != null) {
+            scheduler.shutdown();
+        }
+        if (client != null) {
+            client.close();
+        }
+        LOG.info("Host-server registration service stopped");
+    }
+    
+    /**
+     * Register this Quarkus service with the host-server
+     */
+    private void registerService() {
+        Map<String, Object> registration = new HashMap<>();
+        registration.put("serviceName", serviceName);
+        registration.put("operations", List.of(
+            "submitRequest",
+            "routeRequest",
+            "healthCheck"
+        ));
+        registration.put("endpoint", String.format("http://%s:%d", serviceHost, port));
+        registration.put("healthCheck", String.format("http://%s:%d/api/health", serviceHost, port));
+        registration.put("framework", "Quarkus");
+        registration.put("version", "3.15.1");
+        registration.put("port", port);
+        
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("type", "broker-gateway");
+        metadata.put("language", "Java");
+        metadata.put("runtime", "Quarkus");
+        metadata.put("native-capable", true);
+        registration.put("metadata", metadata);
+        
+        try {
+            Response response = client
+                .target(hostServerUrl)
+                .path("/api/registry/register")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(registration));
+            
+            if (response.getStatus() == 200) {
+                LOG.info("Successfully registered with host-server at " + hostServerUrl);
+                LOG.info("Service: " + serviceName + " on port " + port);
+            } else {
+                LOG.warn("Failed to register with host-server. Status: " + response.getStatus());
+            }
+            
+            response.close();
+        } catch (Exception e) {
+            LOG.error("Error registering with host-server: " + e.getMessage());
+            // Don't fail startup if registration fails
+        }
+    }
+    
+    /**
+     * Send heartbeat to host-server to maintain registration
+     */
+    private void sendHeartbeat() {
+        try {
+            Response response = client
+                .target(hostServerUrl)
+                .path("/api/registry/heartbeat/" + serviceName)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json("{}"));
+            
+            if (response.getStatus() == 200) {
+                LOG.debug("Heartbeat sent successfully");
+            } else {
+                LOG.warn("Heartbeat failed. Status: " + response.getStatus());
+            }
+            
+            response.close();
+        } catch (Exception e) {
+            LOG.error("Error sending heartbeat: " + e.getMessage());
+        }
+    }
+}
