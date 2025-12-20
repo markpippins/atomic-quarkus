@@ -85,7 +85,7 @@ cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway
 ```bash
 cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway
 ./mvnw package
-java -jar target/broker-gateway-quarkus-1.0.0-SNAPSHOT-runner.jar
+java -jar target/quarkus-broker-gateway-1.0.0-SNAPSHOT-runner.jar
 ```
 
 ### Docker Deployment
@@ -172,7 +172,7 @@ heartbeat.interval.seconds=30
 # Check registration
 curl http://localhost:8085/api/registry/services
 
-# Should show broker-gateway-quarkus with status ACTIVE
+# Should show quarkus-broker-gateway with status ACTIVE
 ```
 
 This demonstrates that **any JVM framework** (Spring Boot, Quarkus, Micronaut, etc.) can participate in the service mesh.

@@ -37,7 +37,7 @@ public class HostServerRegistrationService {
     @ConfigProperty(name = "quarkus.http.port", defaultValue = "8090")
     int port;
     
-    @ConfigProperty(name = "quarkus.application.name", defaultValue = "broker-gateway-quarkus")
+    @ConfigProperty(name = "quarkus.application.name", defaultValue = "quarkus-broker-gateway")
     String serviceName;
     
     @ConfigProperty(name = "service.host", defaultValue = "localhost")

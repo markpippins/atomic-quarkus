@@ -40,7 +40,7 @@ public class QuarkusBrokerService implements IBrokerService {
     public Response healthCheck() {
         Map<String, String> health = new HashMap<>();
         health.put("status", "UP");
-        health.put("service", "broker-gateway-quarkus");
+        health.put("service", "quarkus-broker-gateway");
         health.put("port", "8090");
         
         return Response.ok(health).build();
