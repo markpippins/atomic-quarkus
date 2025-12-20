@@ -1,7 +1,7 @@
 # Quarkus-based Broker Gateway Service
 
 ## Overview
-The `broker-gateway-quarkus` is a Quarkus-based implementation of the broker gateway service that complements the existing Spring Boot broker-gateway. It provides the same core functionality but leveraging the Quarkus framework for potentially improved performance, lower memory consumption, and native compilation support.
+The `quarkus-broker-gateway` is a Quarkus-based implementation of the broker gateway service that complements the existing Spring Boot broker-gateway. It provides the same core functionality but leveraging the Quarkus framework for potentially improved performance, lower memory consumption, and native compilation support.
 
 ## Technology Stack
 - **Framework**: Quarkus 3.15.1
@@ -28,7 +28,7 @@ The service is configured through `src/main/resources/application.properties`:
 ```properties
 # Server configuration
 quarkus.http.port=8090
-quarkus.application.name=broker-gateway-quarkus
+quarkus.application.name=quarkus-broker-gateway
 
 # Logging
 quarkus.log.level=INFO
@@ -66,7 +66,7 @@ The service can also be configured using environment variables that override pro
 ### Health Check
 - **GET** `/api/health`
   - Returns service health status
-  - Example response: `{"status":"UP", "service":"broker-gateway-quarkus", "port":"8090"}`
+  - Example response: `{"status":"UP", "service":"quarkus-broker-gateway", "port":"8090"}`
 
 ### Service Listing
 - **GET** `/api/services`
@@ -77,13 +77,13 @@ The service can also be configured using environment variables that override pro
 
 ### Development Mode
 ```bash
-cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway-quarkus
+cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway
 ./mvnw compile quarkus:dev
 ```
 
 ### Production Mode
 ```bash
-cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway-quarkus
+cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway
 ./mvnw package
 java -jar target/broker-gateway-quarkus-1.0.0-SNAPSHOT-runner.jar
 ```
@@ -100,7 +100,7 @@ The service can be containerized with the standard Quarkus containerization exte
 - Kill the Java process with appropriate signals:
 ```bash
 # Find the process ID
-ps aux | grep broker-gateway-quarkus
+ps aux | grep quarkus-broker-gateway
 
 # Stop the service
 kill -TERM <PID>
@@ -112,7 +112,7 @@ kill -TERM <PID>
 docker stop <container-name>
 
 # Or if using docker-compose
-docker-compose down broker-gateway-quarkus
+docker-compose down quarkus-broker-gateway
 ```
 
 ## Interacting with the Service

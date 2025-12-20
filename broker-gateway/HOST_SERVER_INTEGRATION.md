@@ -34,7 +34,7 @@ heartbeat.interval.seconds=30
 cd spring/host-server && mvn spring-boot:run
 
 # Start Quarkus gateway
-cd quarkus/broker-gateway-quarkus && ./mvnw quarkus:dev
+cd quarkus/broker-gateway && ./mvnw quarkus:dev
 
 # Verify registration
 curl http://localhost:8085/api/registry/services
