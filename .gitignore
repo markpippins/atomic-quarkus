@@ -180,3 +180,4 @@ broker-gateway/target/quarkus-broker-gateway-dev.jar
 broker-gateway/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst
 broker-gateway/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst
 broker-gateway/target/quarkus/bootstrap/dev-app-model.dat
+broker-gateway/target/build-analytics-event.json
