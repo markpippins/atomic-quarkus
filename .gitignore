@@ -181,3 +181,6 @@ broker-gateway/target/maven-status/maven-compiler-plugin/compile/null/createdFil
 broker-gateway/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst
 broker-gateway/target/quarkus/bootstrap/dev-app-model.dat
 broker-gateway/target/build-analytics-event.json
+broker-gateway/target/classes/com/angrysurfer/atomic/broker/service/ServiceRegistryRegistrationService.class
+broker-gateway/target/maven-status/maven-compiler-plugin/testCompile/null/createdFiles.lst
+broker-gateway/target/maven-status/maven-compiler-plugin/testCompile/null/inputFiles.lst

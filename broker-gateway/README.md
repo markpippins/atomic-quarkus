@@ -154,8 +154,8 @@ The Quarkus broker-gateway **automatically registers** with the host-server on s
 
 **Configuration**:
 ```properties
-# Host Server Registration
-host.server.url=http://localhost:8085
+# Service Registry Registration
+service.registry.url=http://localhost:8085
 service.host=localhost
 registration.enabled=true
 heartbeat.interval.seconds=30

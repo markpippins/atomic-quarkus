@@ -21,7 +21,7 @@ public class HostServerRegistrationService {
 ### Configuration
 
 ```properties
-host.server.url=http://localhost:8085
+service.registry.url=http://localhost:8085
 service.host=localhost
 registration.enabled=true
 heartbeat.interval.seconds=30
