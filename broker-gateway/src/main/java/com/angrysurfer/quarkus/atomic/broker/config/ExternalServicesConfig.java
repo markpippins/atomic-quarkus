@@ -1,4 +1,4 @@
-package com.angrysurfer.atomic.broker.config;
+package com.angrysurfer.quarkus.atomic.broker.config;
 
 import io.smallrye.config.ConfigMapping;
 import java.util.Map;

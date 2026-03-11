@@ -1,7 +1,7 @@
-package com.angrysurfer.atomic.broker.config;
+package com.angrysurfer.quarkus.atomic.broker.config;
 
-import com.angrysurfer.atomic.broker.api.ServiceRequest;
-import com.angrysurfer.atomic.broker.api.ServiceResponse;
+import com.angrysurfer.spring.atomic.broker.api.ServiceRequest;
+import com.angrysurfer.spring.atomic.broker.api.ServiceResponse;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.ContainerResponseContext;
@@ -28,7 +28,7 @@ public class ServiceLoggingFilter implements ContainerRequestFilter, ContainerRe
 
         // Log request headers if needed
         if (log.isDebugEnabled()) {
-            requestContext.getHeaders().forEach((name, values) -> 
+            requestContext.getHeaders().forEach((name, values) ->
                 log.debugf("Request header: %s = %s", name, values.stream().map(Object::toString).collect(java.util.stream.Collectors.joining(", ")))
             );
         }
@@ -49,7 +49,7 @@ public class ServiceLoggingFilter implements ContainerRequestFilter, ContainerRe
 
         // Log response headers if needed
         if (log.isDebugEnabled()) {
-            responseContext.getHeaders().forEach((name, values) -> 
+            responseContext.getHeaders().forEach((name, values) ->
                 log.debugf("Response header: %s = %s", name, values.stream().map(Object::toString).collect(java.util.stream.Collectors.joining(", ")))
             );
         }
@@ -59,9 +59,9 @@ public class ServiceLoggingFilter implements ContainerRequestFilter, ContainerRe
             try {
                 if (responseContext.getEntity() instanceof ServiceResponse) {
                     ServiceResponse<?> serviceResponse = (ServiceResponse<?>) responseContext.getEntity();
-                    log.infof("Broker response - OK: %s, RequestId: %s, Service: %s, Operation: %s", 
-                        serviceResponse.isOk(), 
-                        serviceResponse.getRequestId(), 
+                    log.infof("Broker response - OK: %s, RequestId: %s, Service: %s, Operation: %s",
+                        serviceResponse.isOk(),
+                        serviceResponse.getRequestId(),
                         serviceResponse.getService(),
                         serviceResponse.getOperation());
                 } else {

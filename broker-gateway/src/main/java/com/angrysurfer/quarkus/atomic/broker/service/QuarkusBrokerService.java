@@ -1,7 +1,7 @@
-package com.angrysurfer.atomic.broker.service;
+package com.angrysurfer.quarkus.atomic.broker.service;
 
-import com.angrysurfer.atomic.broker.api.ServiceRequest;
-import com.angrysurfer.atomic.broker.api.ServiceResponse;
+import com.angrysurfer.spring.atomic.broker.api.ServiceRequest;
+import com.angrysurfer.spring.atomic.broker.api.ServiceResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.Response;
 import java.util.Collections;
@@ -23,7 +23,7 @@ public class QuarkusBrokerService implements IBrokerService {
             result.put("requestId", request.getRequestId());
             result.put("status", "processed");
             result.put("timestamp", System.currentTimeMillis());
-            
+
             return ServiceResponse.ok(request.getService(), request.getOperation(), result, request.getRequestId());
         } catch (Exception e) {
             // Create error response with the original request ID if available
@@ -42,7 +42,7 @@ public class QuarkusBrokerService implements IBrokerService {
         health.put("status", "UP");
         health.put("service", "quarkus-broker-gateway");
         health.put("port", "8090");
-        
+
         return Response.ok(health).build();
     }
 }

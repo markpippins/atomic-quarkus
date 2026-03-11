@@ -1,4 +1,4 @@
-package com.angrysurfer.atomic.broker.service;
+package com.angrysurfer.quarkus.atomic.broker.service;
 
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.ShutdownEvent;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Service that registers the Quarkus broker-gateway with the host-server
  * on startup and sends periodic heartbeats.
- * 
+ *
  * This demonstrates polyglot service registration - a Quarkus service
  * registering with a Spring Boot host-server.
  */

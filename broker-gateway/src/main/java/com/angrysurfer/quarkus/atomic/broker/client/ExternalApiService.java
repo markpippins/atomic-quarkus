@@ -1,4 +1,4 @@
-package com.angrysurfer.atomic.broker.client;
+package com.angrysurfer.quarkus.atomic.broker.client;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
