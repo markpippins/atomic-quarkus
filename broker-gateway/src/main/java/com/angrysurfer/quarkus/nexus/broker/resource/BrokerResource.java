@@ -1,8 +1,9 @@
-package com.angrysurfer.quarkus.atomic.broker.resource;
+package com.angrysurfer.quarkus.nexus.broker.resource;
 
-import com.angrysurfer.spring.atomic.broker.api.ServiceRequest;
-import com.angrysurfer.spring.atomic.broker.api.ServiceResponse;
-import com.angrysurfer.quarkus.atomic.broker.service.IBrokerService;
+import com.angrysurfer.quarkus.nexus.broker.service.IBrokerService;
+import com.angrysurfer.spring.nexus.broker.api.ServiceRequest;
+import com.angrysurfer.spring.nexus.broker.api.ServiceResponse;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

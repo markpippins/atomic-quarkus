@@ -1,4 +1,4 @@
-package com.angrysurfer.quarkus.atomic.broker;
+package com.angrysurfer.quarkus.nexus.broker;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;

@@ -1,7 +1,8 @@
-package com.angrysurfer.quarkus.atomic.broker.config;
+package com.angrysurfer.quarkus.nexus.broker.config;
+
+import java.util.Map;
 
 import io.smallrye.config.ConfigMapping;
-import java.util.Map;
 
 @ConfigMapping(prefix = "external.services")
 public interface ExternalServicesConfig {

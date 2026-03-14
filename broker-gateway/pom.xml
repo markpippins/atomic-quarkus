@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.angrysurfer.quarkus.atomic</groupId>
+    <groupId>com.angrysurfer.quarkus.nexus</groupId>
     <artifactId>quarkus-broker-gateway</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+
+    <name>Quarkus Broker Gateway</name>
+    <description>Quarkus Broker Gateway</description>
 
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
@@ -51,7 +56,7 @@
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.angrysurfer.atomic</groupId>
+            <groupId>com.angrysurfer.nexus</groupId>
             <artifactId>broker-service-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

@@ -1,4 +1,4 @@
-package com.angrysurfer.quarkus.atomic.broker.service;
+package com.angrysurfer.quarkus.nexus.broker.service;
 
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.ShutdownEvent;

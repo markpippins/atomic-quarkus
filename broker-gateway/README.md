@@ -18,7 +18,7 @@ This service mirrors the existing broker-gateway functionality:
 - Service orchestration
 - Health monitoring
 - External service communication
-- Integration with the existing Atomic platform architecture
+- Integration with the existing Nexus platform architecture
 
 ## Configuration
 
@@ -32,7 +32,7 @@ quarkus.application.name=quarkus-broker-gateway
 
 # Logging
 quarkus.log.level=INFO
-quarkus.log.category."com.angrysurfer.atomic".level=DEBUG
+quarkus.log.category."com.angrysurfer.nexus".level=DEBUG
 
 # REST Client configuration (for calling other services)
 quarkus.rest-client.prod-api.url=http://localhost:8080
@@ -77,13 +77,13 @@ The service can also be configured using environment variables that override pro
 
 ### Development Mode
 ```bash
-cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway
+cd /home/codex/dev/WORK/nexus/quarkus/broker-gateway
 ./mvnw compile quarkus:dev
 ```
 
 ### Production Mode
 ```bash
-cd /home/codex/dev/WORK/atomic/quarkus/broker-gateway
+cd /home/codex/dev/WORK/nexus/quarkus/broker-gateway
 ./mvnw package
 java -jar target/quarkus-broker-gateway-1.0.0-SNAPSHOT-runner.jar
 ```
@@ -139,9 +139,9 @@ Configuration can be updated through:
 2. Setting environment variables
 3. Using system properties when starting: `java -Dquarkus.http.port=9090 -jar ...`
 
-## Integration with Atomic Platform
+## Integration with Nexus Platform
 
-The Quarkus broker-gateway service is designed to work seamlessly with the existing Atomic platform:
+The Quarkus broker-gateway service is designed to work seamlessly with the existing Nexus platform:
 - Compatible with existing client applications
 - Same API contracts and endpoints as the Spring Boot version
 - Can coexist with the Spring Boot broker-gateway (different ports)
@@ -227,5 +227,5 @@ To enable debug mode, start with development mode flag:
 Enable DEBUG level logging for troubleshooting:
 ```
 quarkus.log.level=DEBUG
-quarkus.log.category."com.angrysurfer.atomic".level=DEBUG
+quarkus.log.category."com.angrysurfer.nexus".level=DEBUG
 ```
